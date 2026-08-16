@@ -9,7 +9,7 @@
 
 <body>
 
-<script src="https://mo7bd8fddp.voorivex-lab.online/api/get_info"></script>
+<script src="https://mo7bd8fddp.voorivex-lab.online"></script>
 
     <script>
 
@@ -17,8 +17,7 @@
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
 
-                var data=JSON.parse(this.responseText);
-                console.log(data.api_key);
+                console.log(this.responseText);
                 
 
             }
